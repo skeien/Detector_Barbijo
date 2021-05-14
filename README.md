@@ -1,2 +1,2 @@
-# Detector_Barbijo
+# Detector-Barbijo
 Este codigo sirve para garantizar el uso de barbijo en todos los comercios
