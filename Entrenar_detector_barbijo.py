@@ -118,8 +118,8 @@ print(classification_report(testY.argmax(axis=1), predIdxs,
 	target_names=lb.classes_))
 
 # serializar el modelo en el disco
-print("[INFO] saving mask detector model...")
-model.save("mask_detector.model", save_format="h5")
+print("[INFO] Guardando modelo detector de barbijo...")
+model.save("detector_barbijo.model", save_format="h5")
 
 # Trazar la pérdida de entrenamiento y la precisión
 N = EPOCHS
