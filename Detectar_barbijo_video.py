@@ -9,6 +9,7 @@ import time
 import cv2
 import os
 
+
 def detect_and_predict_mask(frame, faceNet, maskNet):
 	# Marcar las dimensiones de la trama de datos y construir el modelo
 	(h, w) = frame.shape[:2]
@@ -84,7 +85,7 @@ faceNet = cv2.dnn.readNet(prototxtPath, weightsPath)
 
 # cargar el modelo del detector de mascarilla desde el disco
 maskNet = load_model("mask_detector.model")
-
+count=0
 # inicializar el video stream
 print("[CdR] Iniciando Video Stream...")
 vs = VideoStream(src=0).start()
@@ -114,12 +115,20 @@ while True:
 
 		# incluir la probabilidad
 		label = "{}: {:.1f}%".format(label, max(mask, withoutMask) * 100)
-
+		if (max(mask, withoutMask) * 100 <40)
+			cap = cv2.VideoCapture(0) # Captura desde la camara
+			ret,frame = cap.read() # Devuelve la trama que no cumple con tener barbijo
+			count+=1
+			cv2.imshow('img1',frame) #Muestra la imagen capturada
+			cv2.imwrite('images/c%.png'&count,frame) #Guarda la imagen capturada
+			cv2.destroyAllWindows() #destruye el frame de la memoria temporal
+			cap.release()
 		# Mostrar la etiqueta y el rectángulo del cuadro delimitador en la salida
 		# de la trama
 		cv2.putText(frame, label, (startX, startY - 10),
 			cv2.FONT_HERSHEY_SIMPLEX, 0.45, color, 2)
 		cv2.rectangle(frame, (startX, startY), (endX, endY), color, 2)
+		
 
 	# Mostrar el marco de salida
 	cv2.imshow("Frame", frame)
